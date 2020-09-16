@@ -1,0 +1,42 @@
+package com.shop.service;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.shop.domain.GoodsViewVO;
+import com.shop.domain.MemberVO;
+import com.shop.persistence.MemberDAO;
+import com.shop.persistence.ShopDAO;
+
+@Service
+public class ShopServiceIml implements ShopService {
+	
+	@Autowired
+	private ShopDAO shopDAO;
+
+	@Override
+	public List<GoodsViewVO> list(int cateCode, int level) {
+		
+		int cateCodeRef = 0; //카테고리 참조코드
+		
+		if(level == 1) {
+			cateCodeRef = cateCode;
+			return shopDAO.list1(cateCode, cateCodeRef);
+		}
+		
+		return shopDAO.list2(cateCode);
+	}
+
+	@Override
+	public GoodsViewVO goodsView(int gdsNum) {
+		return shopDAO.goodsView(gdsNum);
+	}
+	
+	
+	
+
+}

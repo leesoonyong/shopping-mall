@@ -1,0 +1,20 @@
+package com.shop.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.shop.domain.MemberVO;
+import com.shop.persistence.MemberDAO;
+
+@Service
+public class MemberServiceIml implements MemberService {
+	
+	@Autowired
+	private MemberDAO memberDAO; 
+	
+	@Override
+	public void signUp(MemberVO vo) {
+		memberDAO.signUp(vo);
+	}
+
+}

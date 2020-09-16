@@ -1,0 +1,22 @@
+package com.shop.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.shop.service.MemberService;
+
+@Controller
+@RequestMapping("/member/*")
+public class MemberController {
+	
+	@Autowired
+	MemberService service;
+	
+	@Autowired
+	BCryptPasswordEncoder passEncoder;
+	
+	@RequestMapping(value= "/signUp", method = RequestMethod.GET);
+	
+}

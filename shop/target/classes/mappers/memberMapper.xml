@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mappers.member">
+	<!-- 회원가입 -->
+	<insert id="signUp">
+		INSERT INTO TBL_MEMBER(userId, userPass, userName, userPhon)
+		VALUES(#{userId}, #{userPass}, #{userName}, #{userPhon})
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="signIn" resultType="com.shop.domain.MemberVO">
+		SELECT userId, userName, userPass, userPhon, userAddr1, userAddr2, userAddr3, regiDate, verify
+		FROM TBL_MEMBER 
+		WHERE userId = #{userId}
+	</select>
+</mapper>

@@ -1,0 +1,12 @@
+package com.shop.domain;
+
+import java.util.Date;
+
+public class OrderDetailVO {
+	private int orderDetailsNum;
+	private String orderId;
+	private int gdsNum;
+	private int cartStock;
+	
+	
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mappers.shop">
+
+	<!-- 카테고리별 상품리스트 : 1차 분류 -->
+	<select id="list_1" resultType="com.shop.domain.GoodsViewVO">
+		SELECT g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName,
+			   gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate, g.gdsImg, g.gdsThumbImg
+		FROM TBL_GOODS g
+		INNER JOIN GOODS_CATEGORY c
+		ON g.cateCode = c.cateCode
+		WHERE g.cateCode = #{cateCode}
+		OR c.cateCodeRef = #{cateCodeRef}		   
+	</select>
+	
+	<!-- 카테고리별 상품리스트 : 2차 분류 -->
+	<select id="list_2" resultType="com.shop.domain.GoodsViewVO">
+		SELECT g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName,
+			   gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate, g.gdsImg, g.gdsThumbImg
+		FROM TBL_GOODS g
+		INNER JOIN GOODS_CATEGORY c
+		ON g.cateCode = c.cateCode
+		WHERE g.cateCode = #{cateCode}
+	</select>
+	<!-- 댓글 리스트  -->
+	<select id="replyList" resultType="com.shop.domain.ReplyListVO">
+		SELECT r.gdsNum, r.userId, r.repNum, r.repCon, r.repDate, m.userName
+		FROM TBL_REPLY r
+		INNER JOIN TBL_MEMBER m
+		ON r.userId = m.userId
+		WHERE gdsNum = #{gdsNum}
+	
+	</select>
+	
+	
+	<!-- 상품 리뷰(댓글) 작성 -->
+	<insert id="registReply">
+		INSERT INTO TBL_REPLY (
+			gdsNum, userId, repNum, repCon
+		)
+	    VALUES(
+	    	#{gdsNum}, #{userId}, tbl_reply_seq.nextval,#{repCon}
+	    )
+    </insert>
+    <!-- 리뷰삭제 -->
+    <delete id="deleteReply">
+    	DELETE TBL_REPLY
+    	WHERE repNum = #{repNum}
+    	AND USERID = #{userId}
+    </delete>
+    
+    <!-- 아이디체크(리뷰 썼는지 확인) -->
+    <select id="replyUserIdCheck" resultType="String">
+    	SELECT USERID FROM TBL_REPLY WHERE repNum = #{repNum}
+    </select>
+    
+    <!-- 리뷰수정 -->
+    <update id="modifyReply">
+    	UPDATE TBL_REPLY 
+    	SET repCon = #{repCon}
+        WHERE repNum = #{repNum}
+        AND userId = #{userId}			
+    </update>
+    
+    <!-- 카트 물품 추가 -->
+    <insert id="addCart">
+    INSERT INTO TBL_CART (
+    	cartNum, userId, gdsNum, cartStock
+    )
+	VALUES (
+		tbl_cart_seq.nextval, #{userId}, #{gdsNum}, #{cartStock}
+	)
+	</insert>
+	
+	<!-- 카트 리스트 -->
+	<select id="cartList">
+	SELECT
+	    ROW_NUMBER() OVER (ORDER BY c.cartNum DESC) as num,
+	   	c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate,
+	    g.gdsName, g.gdsPrice, g.gdsThumbImg
+	FROM TBL_CART c
+	    INNER JOIN TBL_GOODS g
+	    ON c.gdsNum = g.gdsNum
+	    WHERE c.userId = #{userId}
+	
+	</select>
+</mapper>

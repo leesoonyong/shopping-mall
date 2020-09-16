@@ -1,0 +1,39 @@
+package com.shop.persistence;
+
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.shop.domain.CategoryVO;
+import com.shop.domain.GoodsVO;
+
+@Repository("AdminDAO")
+public class AdminDAO {
+	
+	@Autowired
+	private SqlSessionTemplate mybatis;
+	
+	private static String namespace = "com.shop.mappers.admin";
+	
+	//카테고리
+	public List<CategoryVO>category(){
+		return mybatis.selectList(namespace + ".category");
+	}
+	
+	//상품등록
+	public void register(GoodsVO vo) {
+		mybatis.insert(namespace + ".register", vo);
+	}
+	
+	//상품 리스트
+	public List<GoodsVO> goodslist(){
+		return mybatis.selectList(namespace + "goodslist");
+	}
+	
+	//상품조회
+	public GoodsVO goodsView(int gdsNum) {
+		return mybatis.selectOne(namespace + ".goodsView", gdsNum)
+	}
+}

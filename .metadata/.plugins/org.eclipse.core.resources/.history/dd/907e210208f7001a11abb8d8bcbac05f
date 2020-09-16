@@ -1,0 +1,102 @@
+package com.shop.persistence;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.shop.domain.CartListVO;
+import com.shop.domain.CartVO;
+import com.shop.domain.GoodsViewVO;
+import com.shop.domain.OrderDetailVO;
+import com.shop.domain.OrderVO;
+import com.shop.domain.ReplyListVO;
+import com.shop.domain.ReplyVO;
+
+@Repository("ShopDAO")
+public class ShopDAO {
+	
+	@Autowired
+	SqlSessionTemplate mybatis;
+	
+	private static String namespace = "com.shop.mappers.shop";
+	
+	public List<GoodsViewVO> list1(int cateCode, int cateCodeRef){
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		
+		map.put("cateCode", cateCode);
+		map.put("cateCodeRef", cateCodeRef);
+		
+		return mybatis.selectList(namespace + ".list_1" ,map);
+	}
+	
+	
+	//카테고리 2차분류
+	public List<GoodsViewVO> list2(int cateCode){
+		return mybatis.selectList(namespace + ".list_2", cateCode);
+	}
+	
+	//상품조회
+	public GoodsViewVO goodsView(int gdsNum) {
+		 return mybatis.selectOne("com.shop.mappers.admin" + ".goodsView", gdsNum);
+	}
+	
+	//상품리뷰 등록
+	public void registReply(ReplyVO reply) {
+	
+		mybatis.insert(namespace + ".registReply", reply);
+	}
+	//상품리뷰 리스트
+	public List<ReplyListVO> replyList(int gdsNum){
+		return mybatis.selectList(namespace + ".replyList", gdsNum);
+	}
+	
+	//리뷰삭제
+	public void deleteReply(ReplyVO reply) {
+		mybatis.delete(namespace + ".deleteReply", reply);
+	}
+	
+	//아이디 체크
+	public String idCheck(int repNum) {
+		return mybatis.selectOne(namespace + ".replyUserIdCheck", repNum);
+	}
+	
+	//리뷰수정
+	public void modifyReply(ReplyVO reply) {
+		System.out.println("dao에서 값 최종확인");
+		System.out.println(reply.getRepCon());
+		System.out.println(reply.getRepNum());
+		System.out.println(reply.getUserId());
+		mybatis.update(namespace + ".modifyReply", reply);
+	}
+	
+	//카트담기
+	public void addCart(CartVO cart) {
+		mybatis.insert(namespace + ".addCart", cart);
+	}
+	
+	//카트리스트
+	public List<CartListVO>cartList(String userId){
+		return mybatis.selectList(namespace + ".cartList", userId);
+	}
+	
+	//카트삭제
+	public void deleteCart(CartVO cart) {
+		mybatis.delete(namespace + ".deleteCart", cart);
+	}
+	
+	//주문 정보
+	public void orderInfo(OrderVO order) {
+		mybatis.insert(namespace + ".orderInfo", order); 
+	}
+	//주문 상세 정보
+	public void orderInfo_Details(OrderDetailVO orderDetail) {
+		mybatis.insert(namespace + ".orderInfo_Details", orderDetail);
+	}
+	//주문 내역 카트에서 지우기
+	public void cartAllDelete(String userId) {
+		mybatis.delete(namespace + ".cartAllDelete", userId);
+	}
+}

@@ -1,0 +1,21 @@
+package com.shop.service;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.shop.domain.MemberVO;
+import com.shop.persistence.MemberDAO;
+import com.shop.persistence.ShopDAO;
+
+@Service
+public class ShopServiceIml implements ShopService {
+	
+	@Autowired
+	private ShopDAO shopDAO;
+	
+	
+	
+
+}

@@ -1,0 +1,5 @@
+package com.shop.persistence;
+
+public class ShopDAO {
+
+}

@@ -1,0 +1,23 @@
+package com.shop.persistence;
+
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.shop.domain.GoodsViewVO;
+
+@Repository("ShopDAO")
+public class ShopDAO {
+	
+	@Autowired
+	SqlSessionTemplate mybatis;
+	
+	private static String namespace = "com.shop.mappers.shop";
+	
+	//카테고리 2차분류
+	public List<GoodsViewVO> list(int cateCode){
+		return mybatis.selectList(namespace + ".list_2", cateCode);
+	}
+}

@@ -1,0 +1,52 @@
+package com.shop.persistence;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.shop.domain.GoodsViewVO;
+import com.shop.domain.ReplyListVO;
+import com.shop.domain.ReplyVO;
+
+@Repository("ShopDAO")
+public class ShopDAO {
+	
+	@Autowired
+	SqlSessionTemplate mybatis;
+	
+	private static String namespace = "com.shop.mappers.shop";
+	
+	public List<GoodsViewVO> list1(int cateCode, int cateCodeRef){
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		
+		map.put("cateCode", cateCode);
+		map.put("cateCodeRef", cateCodeRef);
+		
+		return mybatis.selectList(namespace + ".list_1" ,map);
+	}
+	
+	
+	//카테고리 2차분류
+	public List<GoodsViewVO> list2(int cateCode){
+		return mybatis.selectList(namespace + ".list_2", cateCode);
+	}
+	
+	//상품조회
+	public GoodsViewVO goodsView(int gdsNum) {
+		 System.out.println("dao gdsNum" + gdsNum);
+		 return mybatis.selectOne("com.shop.mappers.admin" + ".goodsView", gdsNum);
+	}
+	
+	//상품리뷰 등록
+	public void registReply(ReplyVO reply) {
+		reply.getGdsNum();
+		mybatis.insert(namespace + ".registReply", reply);
+	}
+	//상품리뷰 리스트
+	public List<ReplyListVO> replyList(int gdsNum){
+		return mybatis.selectList(namespace + ".replyList", gdsNum);
+	}
+}

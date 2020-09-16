@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.shop.domain.GoodsVO"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+<fullyQualifiedTypeName name="com.shop.domain.GoodsViewVO"/>
+<fullyQualifiedTypeName name="org.springframework.util.FileCopyUtils"/>
+<fullyQualifiedTypeName name="net.coobird.thumbnailator.Thumbnails"/>
+<fullyQualifiedTypeName name="javax.annotation.Resource"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="com.shop.utils.UploadFileUtils"/>
+<fullyQualifiedTypeName name="java.util.UUID"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="com.shop.domain.ReplyVO"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseBody"/>
+<fullyQualifiedTypeName name="com.shop.domain.CartVO"/>
+<fullyQualifiedTypeName name="com.shop.domain.CartListVO"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="com.shop.domain.OrderDetailVO"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="java.text.DecimalFormat"/>
+<fullyQualifiedTypeName name="com.shop.domain.OrderVO"/>
+<fullyQualifiedTypeName name="com.shop.domain.OrderListVO"/>
+<fullyQualifiedTypeName name="com.shop.domain.ReplyListVO"/>
+</qualifiedTypeNameHistroy>

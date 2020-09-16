@@ -1,0 +1,11 @@
+package com.shop.persistence;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
+@Repository("MemberDAO")
+public class MemberDAO {
+	
+	@Autowired
+	SqlSessionTemplate mybatis;
+}
